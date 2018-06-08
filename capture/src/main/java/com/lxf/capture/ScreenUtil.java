@@ -1,15 +1,37 @@
 package com.lxf.capture;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.ViewConfiguration;
+import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 
-public class DimenUtil {
+public class ScreenUtil {
+
+    /**
+     * 判断当前是不是横屏
+     */
+    public static boolean isLandspace(Context context){
+        return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+    }
+
+    /**
+     * 获取屏幕宽、高、密度
+     */
+    public static int[] getScreenDimen(Context context){
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        if (windowManager != null) {
+            windowManager.getDefaultDisplay().getMetrics(outMetrics);
+        }
+        return new int[]{outMetrics.widthPixels,outMetrics.heightPixels,outMetrics.densityDpi};
+    }
 
     public static int getStatusBarHeight(Context context){
         Class<?> c = null;

@@ -11,8 +11,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        Capture.init(application)
         capture.setOnClickListener {
-            Capture(this@MainActivity).startCapture()
+            Capture.startCapture(this) {
+                println("MainActivity:${it.width};${it.height}")
+            }
         }
     }
 }
