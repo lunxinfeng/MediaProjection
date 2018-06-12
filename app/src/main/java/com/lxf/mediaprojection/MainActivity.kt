@@ -14,8 +14,14 @@ class MainActivity : AppCompatActivity() {
         Capture.init(application)
         capture.setOnClickListener {
             Capture.startCapture(this) {
+                imageView.setImageBitmap(it)
                 println("MainActivity:${it.width};${it.height}")
             }
         }
+    }
+
+    override fun onDestroy() {
+        Capture.stopVirtual()
+        super.onDestroy()
     }
 }
